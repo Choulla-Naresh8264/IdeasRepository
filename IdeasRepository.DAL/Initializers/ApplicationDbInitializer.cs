@@ -27,12 +27,22 @@ namespace IdeasRepository.DAL.Initializers
             AddUser(context, "admin", "admin@admin.com", "admin", roleIdAdmin);
             AddUser(context, "user", "user@user.com", "user", roleIdUser);
 
+            AddRecordTypes(context);
+
             context.SaveChanges();
         }
 
         private void AddRecordTypes(ApplicationDbContext context)
         {
+            var recordTypes = new List<RecordType>();
+            recordTypes.Add(new RecordType { Id = Guid.NewGuid().ToString(), Name = "Note" });
+            recordTypes.Add(new RecordType { Id = Guid.NewGuid().ToString(), Name = "Though" });
+            recordTypes.Add(new RecordType { Id = Guid.NewGuid().ToString(), Name = "Idea" });
+            recordTypes.Add(new RecordType { Id = Guid.NewGuid().ToString(), Name = "Remark" });
+            recordTypes.Add(new RecordType { Id = Guid.NewGuid().ToString(), Name = "Comment" });
 
+            context.RecordTypes.AddRange(recordTypes);
+            context.SaveChanges();
         }
 
         private string AddUserRole(ApplicationDbContext context, string roleName)
