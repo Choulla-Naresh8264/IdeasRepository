@@ -27,7 +27,11 @@
                     @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Records", "List", "Record")</li>
-                        <li>@Html.ActionLink("Roles", "List", "Roles")</li>
+                        if (User.IsInRole("Administrator"))
+                        {
+                            <li>@Html.ActionLink("Roles", "List", "Roles")</li>
+                        }
+
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")

@@ -16,8 +16,10 @@ namespace IdeasRepository.Web.Models.Records
         [DataType(DataType.MultilineText)]
         public string TextBody { get; set; }
 
-        [Required]
         public string RecordType { get; set; }
+
+        [Required]
+        public string RecordTypeId { get; set; }
 
         public bool IsDeleted { get; set; }
     }

@@ -12,7 +12,6 @@ namespace IdeasRepository.BL.Interfaces
         List<Record> GetAllRecords();
         List<RecordType> GetAllRecordTypes();
         Record GetRecord(string id);
-        RecordType GetRecordTypeByName(string name);
         void AddRecord(Record record);
         void UpdateRecord(Record record);
         void RemoveRecord(Record record);

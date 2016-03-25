@@ -56,7 +56,7 @@ namespace IdeasRepository.Web.Controllers
                 ApplicationUser user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Неверный логин или пароль.");
+                    ModelState.AddModelError("", "Incorrect user name or password.");
                 }
                 else
                 {
@@ -92,13 +92,13 @@ namespace IdeasRepository.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                ApplicationUser user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 
                 if (result.Succeeded)
                 {
                     var currentUser = UserManager.FindByEmail(user.Email);
-                    var roleresult = UserManager.AddToRole(currentUser.Id, "Users");
+                    var roleresult = UserManager.AddToRole(currentUser.Id, "User");
 
                     return RedirectToAction("Login", "Account");
                 }

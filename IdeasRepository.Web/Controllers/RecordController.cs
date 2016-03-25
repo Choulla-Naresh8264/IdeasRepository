@@ -44,7 +44,7 @@ namespace IdeasRepository.Web.Controllers
             return View(recordsViewModel);
         }
 
-        public ActionResult RecordTypes()
+        public ActionResult RecordTypes(string currentRecordTypeName)
         {
             var recordTypes = _provider.GetAllRecordTypes();
             var recordTypesViewModel = new List<RecordTypeViewModel>();
@@ -59,6 +59,11 @@ namespace IdeasRepository.Web.Controllers
                         Name = record.Name
                     });
                 }
+            }
+
+            if (currentRecordTypeName != null)
+            {
+                ViewBag.CurrentRecordName = currentRecordTypeName;
             }
 
             return PartialView("_PartialRecordTypes", recordTypesViewModel);
@@ -80,7 +85,7 @@ namespace IdeasRepository.Web.Controllers
                     Author = HttpContext.User.Identity.Name,
                     CreationDate = DateTime.Now,
                     TextBody = record.TextBody,
-                    RecordTypeId = _provider.GetRecordTypeByName(record.RecordType).Id
+                    RecordTypeId = record.RecordTypeId
                 };
 
                 _provider.AddRecord(recordDataModel);
@@ -117,7 +122,7 @@ namespace IdeasRepository.Web.Controllers
                 {
                     Id = record.Id,
                     TextBody = record.TextBody,
-                    RecordTypeId = _provider.GetRecordTypeByName(record.RecordType).Id
+                    RecordTypeId = record.RecordTypeId
                 };
 
                 _provider.UpdateRecord(recordDataModel);

@@ -37,12 +37,6 @@ namespace IdeasRepository.BL.Providers
             return record;
         }
 
-        public RecordType GetRecordTypeByName(string name)
-        {
-            var record = _context.RecordTypes.Where(r => r.Name == name).SingleOrDefault();
-            return record;
-        }
-
         public void AddRecord(Record record)
         {
             _context.Records.Add(record);
