@@ -81,6 +81,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -90,9 +91,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IAccountsProvider.cs" />
+    <Compile Include="Interfaces\IAuthManager.cs" />
     <Compile Include="Interfaces\IRecordsProvider.cs" />
+    <Compile Include="Interfaces\IRolesManager.cs" />
+    <Compile Include="Interfaces\IUsersManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\AccountsProvider.cs" />
     <Compile Include="Providers\RecordsProvider.cs" />
+    <Compile Include="Providers\RolesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdeasRepository.DAL\IdeasRepository.DAL.csproj">

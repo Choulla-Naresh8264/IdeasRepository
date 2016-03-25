@@ -11,34 +11,44 @@ using IdeasRepository.DAL.Entities;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 using IdeasRepository.DAL.Managers;
+using IdeasRepository.BL.Providers;
+using IdeasRepository.BL.Interfaces;
 
 namespace IdeasRepository.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private ApplicationUserManager UserManager
+        private IAccountsProvider _accountsProvider
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return new AccountsProvider(HttpContext);
             }
         }
 
-        private ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
-            }
-        }
+        //private ApplicationUserManager UserManager
+        //{
+        //    get
+        //    {
+        //        return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    }
+        //}
 
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        //private ApplicationRoleManager RoleManager
+        //{
+        //    get
+        //    {
+        //        return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+        //    }
+        //}
+
+        //private IAuthenticationManager AuthenticationManager
+        //{
+        //    get
+        //    {
+        //        return HttpContext.GetOwinContext().Authentication;
+        //    }
+        //}
 
         public ActionResult Login(string returnUrl)
         {
@@ -51,34 +61,62 @@ namespace IdeasRepository.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            //if (ModelState.IsValid)
+            //{
+            //    ApplicationUser user = await UserManager.FindAsync(model.UserName, model.Password);
+            //    if (user == null)
+            //    {
+            //        ModelState.AddModelError("", "Incorrect user name or password.");
+            //    }
+            //    else
+            //    {
+            //        ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
+            //                                DefaultAuthenticationTypes.ApplicationCookie);
+            //        AuthenticationManager.SignOut();
+            //        AuthenticationManager.SignIn(new AuthenticationProperties
+            //        {
+            //            IsPersistent = true
+            //        }, claim);
+            //        if (string.IsNullOrEmpty(returnUrl))
+            //            return RedirectToAction("Index", "Home");
+            //        return Redirect(returnUrl);
+            //    }
+            //}
+            //ViewBag.returnUrl = returnUrl;
+            //return View(model);
+
             if (ModelState.IsValid)
             {
-                ApplicationUser user = await UserManager.FindAsync(model.UserName, model.Password);
+                var user = await _accountsProvider.UserManager.FindAsync(model.UserName, model.Password);
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Incorrect user name or password.");
                 }
                 else
                 {
-                    ClaimsIdentity claim = await UserManager.CreateIdentityAsync(user,
-                                            DefaultAuthenticationTypes.ApplicationCookie);
-                    AuthenticationManager.SignOut();
-                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    var claim = await _accountsProvider.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                    _accountsProvider.AuthManager.SignOut();
+                    _accountsProvider.AuthManager.SignIn(new AuthenticationProperties
                     {
                         IsPersistent = true
                     }, claim);
+
                     if (string.IsNullOrEmpty(returnUrl))
                         return RedirectToAction("Index", "Home");
+
                     return Redirect(returnUrl);
                 }
             }
+
             ViewBag.returnUrl = returnUrl;
             return View(model);
         }
 
         public ActionResult Logout()
         {
-            AuthenticationManager.SignOut();
+            //AuthenticationManager.SignOut();
+            _accountsProvider.AuthManager.SignOut();
+
             return RedirectToAction("Login");
         }
 
@@ -90,15 +128,43 @@ namespace IdeasRepository.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            //if (ModelState.IsValid)
+            //{
+            //    ApplicationUser user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+            //    IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+            //    if (result.Succeeded)
+            //    {
+            //        var currentUser = UserManager.FindByEmail(user.Email);
+            //        var roleResult = UserManager.AddToRole(currentUser.Id, "User");
+
+            //        return RedirectToAction("Login", "Account");
+            //    }
+            //    else
+            //    {
+            //        foreach (string error in result.Errors)
+            //        {
+            //            ModelState.AddModelError("", error);
+            //        }
+            //    }
+            //}
+
+            //return View(model);
+
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-                
+                var user = new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    Email = model.Email
+                };
+
+                var result = await _accountsProvider.UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
-                    var currentUser = UserManager.FindByEmail(user.Email);
-                    var roleresult = UserManager.AddToRole(currentUser.Id, "User");
+                    var currentUser = _accountsProvider.UserManager.FindByEmail(user.Email);
+                    var roleResult = _accountsProvider.UserManager.AddToRole(currentUser.Id, "User");
 
                     return RedirectToAction("Login", "Account");
                 }
@@ -160,15 +226,16 @@ namespace IdeasRepository.Web.Controllers
         [ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed()
         {
-            ApplicationUser user = await UserManager.FindByEmailAsync(User.Identity.Name);
+            var user = await _accountsProvider.UserManager.FindByEmailAsync(User.Identity.Name);
             if (user != null)
             {
-                IdentityResult result = await UserManager.DeleteAsync(user);
+                var result = await _accountsProvider.UserManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Logout", "Account");
                 }
             }
+
             return RedirectToAction("Index", "Home");
         }
     }
