@@ -5,6 +5,10 @@ using System.Data.Entity;
 
 namespace IdeasRepository.DAL.Contexts
 {
+    /// <summary>
+    /// Database context which extend base class with new sets of the entities
+    /// and explicit determines database initializer.
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

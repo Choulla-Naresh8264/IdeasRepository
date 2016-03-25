@@ -8,6 +8,9 @@ using System;
 
 namespace IdeasRepository.DAL.Managers
 {
+    /// <summary>
+    /// Configuration of the application user manager.
+    /// </summary>
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
@@ -20,6 +23,7 @@ namespace IdeasRepository.DAL.Managers
         {
             var applicationContext = context.Get<ApplicationDbContext>();
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(applicationContext));
+
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
@@ -48,6 +52,7 @@ namespace IdeasRepository.DAL.Managers
                 manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
+
             return manager;
         }
     }

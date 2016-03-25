@@ -9,6 +9,10 @@ using System.Linq;
 
 namespace IdeasRepository.DAL.Initializers
 {
+    /// <summary>
+    /// Database initializer based on defining in the Entity Framework library
+    /// wich drop, create and seed database always on the application starts.
+    /// </summary>
     public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         private Random _random = new Random();
@@ -19,6 +23,10 @@ namespace IdeasRepository.DAL.Initializers
             base.Seed(context);
         }
 
+        /// <summary>
+        /// Fills the database underlying the given context with a test values.
+        /// </summary>
+        /// <param name="context">Database context.</param>
         private void FillDatabaseWithTestValues(ApplicationDbContext context)
         {
             var roleIdAdmin = AddUserRole(context, "Administrator");
@@ -34,6 +42,11 @@ namespace IdeasRepository.DAL.Initializers
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Adds new records to the database to all users.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        /// <param name="recordsCount">Count of records that must be added to each user.</param>
         private void AddRecords(ApplicationDbContext context, int recordsCount)
         {
             foreach (var user in context.Users)
@@ -55,6 +68,10 @@ namespace IdeasRepository.DAL.Initializers
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Gets Id of the random record type.
+        /// </summary>
+        /// <param name="context">Database context.</param>
         private string GetRandomRecordTypeId(ApplicationDbContext context)
         {
             var recordTypeNumber = _random.Next(0, 5);
@@ -62,6 +79,10 @@ namespace IdeasRepository.DAL.Initializers
             return context.RecordTypes.ToList()[recordTypeNumber].Id;
         }
 
+        /// <summary>
+        /// Adds an specific record types to the database.
+        /// </summary>
+        /// <param name="context">Database context.</param>
         private void AddRecordTypes(ApplicationDbContext context)
         {
             var recordTypes = new List<RecordType>();
@@ -75,6 +96,12 @@ namespace IdeasRepository.DAL.Initializers
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// Adds new user role.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        /// <param name="roleName">Name of the user role.</param>
+        /// <returns>Returns Id of the just added record type.</returns>
         private string AddUserRole(ApplicationDbContext context, string roleName)
         {
             var userRole = new ApplicationRole { Name = roleName };
@@ -83,6 +110,14 @@ namespace IdeasRepository.DAL.Initializers
             return userRole.Id;
         }
 
+        /// <summary>
+        /// Adds new user to the system.
+        /// </summary>
+        /// <param name="context">Database context.</param>
+        /// <param name="userName">User name.</param>
+        /// <param name="userEmail">E-mail address.</param>
+        /// <param name="userPassword">Unhashed password.</param>
+        /// <param name="roleId">User role id.</param>
         private void AddUser(ApplicationDbContext context, string userName, string userEmail, string userPassword, string roleId)
         {
             var hasher = new PasswordHasher();

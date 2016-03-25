@@ -7,7 +7,9 @@ using IdeasRepository.DAL.Contexts;
 
 namespace IdeasRepository.DAL.Managers
 {
-    // Configuring the application role manager
+    /// <summary>
+    /// Configuration of the application role manager
+    /// </summary>
     public class ApplicationRoleManager : RoleManager<ApplicationRole>
     {
         public ApplicationRoleManager(RoleStore<ApplicationRole> store)

@@ -7,6 +7,9 @@ namespace IdeasRepository.BL.Providers
 {
     public class RolesProvider : IRolesManager
     {
+        /// <summary>
+        /// An instance of the database context.
+        /// </summary>
         private HttpContextBase _context;
 
         [Inject]

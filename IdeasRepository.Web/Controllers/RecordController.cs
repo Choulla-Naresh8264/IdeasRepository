@@ -7,9 +7,16 @@ using System.Web.Mvc;
 
 namespace IdeasRepository.Web.Controllers
 {
+    /// <summary>
+    /// Describes the necessary actions to manage information about records.
+    /// User must be authorized in the system to get access to this section.
+    /// </summary>
     [Authorize]
     public class RecordController : Controller
     {
+        /// <summary>
+        /// Provides access to the records management logic.
+        /// </summary>
         private IRecordsProvider _provider;
 
         public RecordController(IRecordsProvider provider)

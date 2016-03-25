@@ -9,8 +9,16 @@ using System.Web.Mvc;
 
 namespace IdeasRepository.Web.Controllers
 {
+    /// <summary>
+    /// Describes the necessary actions to manage user roles.
+    /// User must be authorized in the system to get access to this section.
+    /// </summary>
+    [Authorize]
     public class RolesController : Controller
     {
+        /// <summary>
+        /// Provides access to the role management logic.
+        /// </summary>
         [Inject]
         public IRolesManager _rolesProvider { get; set; }
 

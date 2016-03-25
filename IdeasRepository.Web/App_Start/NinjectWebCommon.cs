@@ -11,6 +11,9 @@ namespace IdeasRepository.Web.App_Start
     using System.Web.Mvc;
     using Dependencies;
 
+    /// <summary>
+    /// Configuration of the Ninject IoC container.
+    /// </summary>
     public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();

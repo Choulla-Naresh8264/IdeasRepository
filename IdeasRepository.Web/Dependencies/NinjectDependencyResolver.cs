@@ -12,6 +12,9 @@ using System.Web.Mvc;
 
 namespace IdeasRepository.Web.Dependencies
 {
+    /// <summary>
+    /// Represents Ninject IoC container with binding configuration.
+    /// </summary>
     public class NinjectDependencyResolver : IDependencyResolver
     {
         private IKernel _kernel;
@@ -32,6 +35,9 @@ namespace IdeasRepository.Web.Dependencies
             return _kernel.GetAll(serviceType);
         }
 
+        /// <summary>
+        /// Adds bindings to resolve dependencies.
+        /// </summary>
         public void AddBindings()
         {
             _kernel.Bind<IRecordsProvider>()
