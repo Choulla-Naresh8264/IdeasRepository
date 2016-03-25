@@ -1,17 +1,8 @@
 ﻿using IdeasRepository.DAL.Managers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using IdeasRepository.DAL.Entities;
 using Microsoft.Owin.Security;
-using System.Security.Claims;
 using IdeasRepository.BL.Interfaces;
+using Ninject;
 
 namespace IdeasRepository.BL.Providers
 {
@@ -19,29 +10,14 @@ namespace IdeasRepository.BL.Providers
     {
         private HttpContextBase _context;
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-        }
+        [Inject]
+        public ApplicationUserManager UserManager { get; set; }
+        
+        [Inject]
+        public ApplicationRoleManager RoleManager { get; set; }
 
-        public ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return _context.GetOwinContext().GetUserManager<ApplicationRoleManager>();
-            }
-        }
-
-        public IAuthenticationManager AuthManager
-        {
-            get
-            {
-                return _context.GetOwinContext().Authentication;
-            }
-        }
+        [Inject]
+        public IAuthenticationManager AuthManager { get; set; }
 
         public AccountsProvider(HttpContextBase context)
         {

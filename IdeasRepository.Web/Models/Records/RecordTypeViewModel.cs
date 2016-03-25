@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace IdeasRepository.Web.Models.Records
+﻿namespace IdeasRepository.Web.Models.Records
 {
     public class RecordTypeViewModel
     {

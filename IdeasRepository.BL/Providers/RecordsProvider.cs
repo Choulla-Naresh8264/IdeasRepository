@@ -1,12 +1,9 @@
 ﻿using IdeasRepository.BL.Interfaces;
 using IdeasRepository.DAL.Contexts;
 using IdeasRepository.DAL.Entities;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdeasRepository.BL.Providers
 {
@@ -14,9 +11,9 @@ namespace IdeasRepository.BL.Providers
     {
         private ApplicationDbContext _context;
 
-        public RecordsProvider()
+        public RecordsProvider(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
+            _context = context;
         }
 
         public List<Record> GetAllRecords()

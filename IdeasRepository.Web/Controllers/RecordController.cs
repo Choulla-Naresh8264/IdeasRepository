@@ -1,11 +1,8 @@
 ﻿using IdeasRepository.BL.Interfaces;
-using IdeasRepository.BL.Providers;
 using IdeasRepository.DAL.Entities;
 using IdeasRepository.Web.Models.Records;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace IdeasRepository.Web.Controllers
@@ -15,9 +12,9 @@ namespace IdeasRepository.Web.Controllers
     {
         private IRecordsProvider _provider;
 
-        public RecordController()
+        public RecordController(IRecordsProvider provider)
         {
-            _provider = new RecordsProvider();
+            _provider = provider;
         }
 
         public ActionResult List()

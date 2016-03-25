@@ -6,13 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdeasRepository.DAL.Initializers
 {
     public class ApplicationDbInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
+        private Random _random = new Random();
+
         protected override void Seed(ApplicationDbContext context)
         {
             FillDatabaseWithTestValues(context);
@@ -57,8 +57,7 @@ namespace IdeasRepository.DAL.Initializers
 
         private string GetRandomRecordTypeId(ApplicationDbContext context)
         {
-            var random = new Random();
-            var recordTypeNumber = random.Next(0, 5);
+            var recordTypeNumber = _random.Next(0, 5);
 
             return context.RecordTypes.ToList()[recordTypeNumber].Id;
         }

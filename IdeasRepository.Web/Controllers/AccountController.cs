@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
 using IdeasRepository.Web.Models.Account;
 using IdeasRepository.DAL.Entities;
 using Microsoft.Owin.Security;
-using System.Security.Claims;
-using IdeasRepository.DAL.Managers;
-using IdeasRepository.BL.Providers;
 using IdeasRepository.BL.Interfaces;
+using Ninject;
 
 namespace IdeasRepository.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private IAccountsProvider _accountsProvider
-        {
-            get
-            {
-                return new AccountsProvider(HttpContext);
-            }
-        }
+        [Inject]
+        public IAccountsProvider _accountsProvider { get; set; }
+        
 
         //private ApplicationUserManager UserManager
         //{
@@ -102,7 +91,7 @@ namespace IdeasRepository.Web.Controllers
                     }, claim);
 
                     if (string.IsNullOrEmpty(returnUrl))
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("List", "Record");
 
                     return Redirect(returnUrl);
                 }

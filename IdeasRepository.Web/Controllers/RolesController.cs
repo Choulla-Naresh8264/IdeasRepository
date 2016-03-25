@@ -1,36 +1,18 @@
 ﻿using IdeasRepository.BL.Interfaces;
-using IdeasRepository.BL.Providers;
 using IdeasRepository.DAL.Entities;
-using IdeasRepository.DAL.Managers;
 using IdeasRepository.Web.Models.Roles;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using System;
+using Ninject;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace IdeasRepository.Web.Controllers
 {
     public class RolesController : Controller
     {
-        private IRolesManager _rolesProvider
-        {
-            get
-            {
-                return new RolesProvider(HttpContext);
-            }
-        }
-
-        //private ApplicationRoleManager RoleManager
-        //{
-        //    get
-        //    {
-        //        return HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
-        //    }
-        //}
+        [Inject]
+        public IRolesManager _rolesProvider { get; set; }
 
         public ActionResult List()
         {
