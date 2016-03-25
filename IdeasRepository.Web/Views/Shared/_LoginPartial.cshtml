@@ -2,7 +2,7 @@
 @if (Request.IsAuthenticated)
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink($"Hello, {User.Identity.GetUserName()}!", "Delete", "Account")</li>
+        <li><a>Hello, @User.Identity.GetUserName()!</a></li>
         <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
     </ul>
 }

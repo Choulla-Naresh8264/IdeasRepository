@@ -1,15 +1,14 @@
 ﻿using IdeasRepository.DAL.Entities;
 using IdeasRepository.DAL.Initializers;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdeasRepository.DAL.Contexts
 {
+    /// <summary>
+    /// Database context which extend base class with new sets of the entities
+    /// and explicit determines database initializer.
+    /// </summary>
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()

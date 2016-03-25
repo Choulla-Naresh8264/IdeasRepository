@@ -1,12 +1,12 @@
 ﻿using IdeasRepository.DAL.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IdeasRepository.BL.Interfaces
 {
+    /// <summary>
+    /// Interface that represents an records management logic.
+    /// </summary>
     public interface IRecordsProvider : IDisposable
     {
         List<Record> GetAllRecords();

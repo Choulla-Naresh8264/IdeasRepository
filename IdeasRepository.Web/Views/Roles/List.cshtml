@@ -17,16 +17,21 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var role in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => role.Name)
+            </td>
+            <td>
+                @if (role.Name != "Administrator" && role.Name != "User")
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = role.Id });
+                    @: |
+                    @Html.ActionLink("Delete", "Delete", new { id = role.Id });
+                }
+            </td>
+        </tr>
+    }
 
 </table>

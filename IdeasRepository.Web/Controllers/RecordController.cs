@@ -1,23 +1,27 @@
 ﻿using IdeasRepository.BL.Interfaces;
-using IdeasRepository.BL.Providers;
 using IdeasRepository.DAL.Entities;
 using IdeasRepository.Web.Models.Records;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace IdeasRepository.Web.Controllers
 {
+    /// <summary>
+    /// Describes the necessary actions to manage information about records.
+    /// User must be authorized in the system to get access to this section.
+    /// </summary>
     [Authorize]
     public class RecordController : Controller
     {
+        /// <summary>
+        /// Provides access to the records management logic.
+        /// </summary>
         private IRecordsProvider _provider;
 
-        public RecordController()
+        public RecordController(IRecordsProvider provider)
         {
-            _provider = new RecordsProvider();
+            _provider = provider;
         }
 
         public ActionResult List()
@@ -38,7 +42,7 @@ namespace IdeasRepository.Web.Controllers
                         TextBody = record.TextBody,
                         IsDeleted = record.IsDeleted
                     });
-                } 
+                }
             }
 
             return View(recordsViewModel);
