@@ -20,12 +20,8 @@ namespace IdeasRepository.DAL.Managers
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            #region Enought
-            //ApplicationContext db = context.Get<ApplicationContext>();
-            //ApplicationUserManager manager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
-            //return manager;
-            #endregion
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var applicationContext = context.Get<ApplicationDbContext>();
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(applicationContext));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {

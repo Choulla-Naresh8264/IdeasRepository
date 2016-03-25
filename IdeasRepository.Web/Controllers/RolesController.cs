@@ -58,7 +58,7 @@ namespace IdeasRepository.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Что-то пошло не так");
+                    ModelState.AddModelError("", "An error was ocurred, try again later");
                 }
             }
             return View(model);
@@ -90,7 +90,7 @@ namespace IdeasRepository.Web.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Что-то пошло не так");
+                        ModelState.AddModelError("", "An error was ocurred, try again later");
                     }
                 }
             }

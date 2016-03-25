@@ -27,12 +27,53 @@ namespace IdeasRepository.DAL.Initializers
             AddUser(context, "admin", "admin@admin.com", "admin", roleIdAdmin);
             AddUser(context, "user", "user@user.com", "user", roleIdUser);
 
+            AddRecordTypes(context);
+
+            AddRecords(context, 7);
+
             context.SaveChanges();
+        }
+
+        private void AddRecords(ApplicationDbContext context, int recordsCount)
+        {
+            foreach (var user in context.Users)
+            {
+                for (int i = 0; i < recordsCount; i++)
+                {
+                    var record = new Record
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Author = user.UserName,
+                        CreationDate = DateTime.Now,
+                        TextBody = $"Text message {i} by {user.UserName} for testing purposes",
+                        RecordTypeId = GetRandomRecordTypeId(context)
+                    };
+
+                    context.Records.Add(record);  
+                }
+            }
+            context.SaveChanges();
+        }
+
+        private string GetRandomRecordTypeId(ApplicationDbContext context)
+        {
+            var random = new Random();
+            var recordTypeNumber = random.Next(0, 5);
+
+            return context.RecordTypes.ToList()[recordTypeNumber].Id;
         }
 
         private void AddRecordTypes(ApplicationDbContext context)
         {
+            var recordTypes = new List<RecordType>();
+            recordTypes.Add(new RecordType { Id = Guid.NewGuid().ToString(), Name = "Note" });
+            recordTypes.Add(new RecordType { Id = Guid.NewGuid().ToString(), Name = "Though" });
+            recordTypes.Add(new RecordType { Id = Guid.NewGuid().ToString(), Name = "Idea" });
+            recordTypes.Add(new RecordType { Id = Guid.NewGuid().ToString(), Name = "Remark" });
+            recordTypes.Add(new RecordType { Id = Guid.NewGuid().ToString(), Name = "Comment" });
 
+            context.RecordTypes.AddRange(recordTypes);
+            context.SaveChanges();
         }
 
         private string AddUserRole(ApplicationDbContext context, string roleName)

@@ -145,23 +145,28 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\removingConfirmation.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Record\Create.cshtml" />
+    <Content Include="Views\Record\Edit.cshtml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RecordController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\RegisterViewModel.cs" />
+    <Compile Include="Models\Records\RecordTypeViewModel.cs" />
+    <Compile Include="Models\Records\RecordViewModel.cs" />
     <Compile Include="Models\Roles\RoleEditModel.cs" />
     <Compile Include="Models\Roles\RoleViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -181,9 +186,13 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Roles\List.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Record\List.cshtml" />
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contacts.cshtml" />
+    <Content Include="Views\Record\_PartialRecordTypes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -193,7 +202,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IdeasRepository.BL\IdeasRepository.BL.csproj">

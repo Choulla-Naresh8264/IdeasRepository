@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<IdeasRepository.Web.Models.Records.RecordViewModel>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>Records list</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TextBody)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecordType)
+        </th>
+        @if (User.IsInRole("Administrator"))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+        }
+        <th></th>
+    </tr>
+
+    @foreach (var record in Model)
+    {
+        if (User.IsInRole("Administrator") || (record.Author == User.Identity.GetUserName() & !record.IsDeleted))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => record.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => record.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => record.TextBody)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => record.RecordType)
+                </td>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => record.IsDeleted)
+                        @if (record.IsDeleted)
+                        {
+                            @Html.ActionLink("Restore", "Restore", new { id = record.Id })
+                        }
+                    </td>
+                }
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = record.Id }) |
+                    @Html.ActionLink("Delete", "Remove", new { id = record.Id }, new { @id = "removeRecord" })
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+
+@section Scripts{
+    <script src="~/Scripts/removingConfirmation.js"></script>
+}

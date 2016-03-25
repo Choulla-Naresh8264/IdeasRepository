@@ -1,0 +1,9 @@
+﻿@model IEnumerable<IdeasRepository.Web.Models.Records.RecordTypeViewModel>
+
+<select class="form-control" name="RecordTypeId">
+    @foreach (var type in Model)
+    {
+        <option @if (type.Name == ViewBag.CurrentRecordName) { @: selected
+        } value="@type.Id">@type.Name</option>
+    }
+</select>

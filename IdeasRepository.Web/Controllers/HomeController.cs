@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace IdeasRepository.Web.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -15,6 +14,11 @@ namespace IdeasRepository.Web.Controllers
         }
 
         public ActionResult About()
+        {
+            return View();
+        }
+
+        public ActionResult Contacts()
         {
             return View();
         }
