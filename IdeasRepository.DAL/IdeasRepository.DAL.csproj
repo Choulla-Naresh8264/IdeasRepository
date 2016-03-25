@@ -110,6 +110,10 @@
     <Compile Include="Migrations\201603242240044_AddRecordRelatedEntities.Designer.cs">
       <DependentUpon>201603242240044_AddRecordRelatedEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603250118173_AddRecordDeletedState.cs" />
+    <Compile Include="Migrations\201603250118173_AddRecordDeletedState.Designer.cs">
+      <DependentUpon>201603250118173_AddRecordDeletedState.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -126,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603242240044_AddRecordRelatedEntities.resx">
       <DependentUpon>201603242240044_AddRecordRelatedEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603250118173_AddRecordDeletedState.resx">
+      <DependentUpon>201603250118173_AddRecordDeletedState.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

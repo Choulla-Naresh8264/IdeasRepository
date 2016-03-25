@@ -29,7 +29,38 @@ namespace IdeasRepository.DAL.Initializers
 
             AddRecordTypes(context);
 
+            AddRecords(context, 7);
+
             context.SaveChanges();
+        }
+
+        private void AddRecords(ApplicationDbContext context, int recordsCount)
+        {
+            foreach (var user in context.Users)
+            {
+                for (int i = 0; i < recordsCount; i++)
+                {
+                    var record = new Record
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Author = user.UserName,
+                        CreationDate = DateTime.Now,
+                        TextBody = $"Text message {i} by {user.UserName} for testing purposes",
+                        RecordTypeId = GetRandomRecordTypeId(context)
+                    };
+
+                    context.Records.Add(record);  
+                }
+            }
+            context.SaveChanges();
+        }
+
+        private string GetRandomRecordTypeId(ApplicationDbContext context)
+        {
+            var random = new Random();
+            var recordTypeNumber = random.Next(0, 5);
+
+            return context.RecordTypes.ToList()[recordTypeNumber].Id;
         }
 
         private void AddRecordTypes(ApplicationDbContext context)

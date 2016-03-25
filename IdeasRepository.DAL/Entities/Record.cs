@@ -12,6 +12,7 @@ namespace IdeasRepository.DAL.Entities
         public string Author { get; set; }
         public DateTime CreationDate { get; set; }
         public string TextBody { get; set; }
+        public bool IsDeleted { get; set; }
 
         public string RecordTypeId { get; set; }
         public virtual RecordType RecordType { get; set; }

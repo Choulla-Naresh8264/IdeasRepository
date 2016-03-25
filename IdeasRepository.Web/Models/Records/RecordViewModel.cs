@@ -11,10 +11,14 @@ namespace IdeasRepository.Web.Models.Records
         public string Id { get; set; }
         public string Author { get; set; }
         public string CreationDate { get; set; }
+
         [Required]
         [DataType(DataType.MultilineText)]
         public string TextBody { get; set; }
+
         [Required]
         public string RecordType { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

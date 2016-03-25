@@ -59,6 +59,15 @@ namespace IdeasRepository.BL.Providers
             _context.SaveChanges();
         }
 
+        public void UpdateRemovedStatus(Record record)
+        {
+            _context.Records.Attach(record);
+            var entry = _context.Entry(record);
+            entry.Property(p => p.IsDeleted).IsModified = true;
+
+            _context.SaveChanges();
+        }
+
         public void RemoveRecord(Record record)
         {
             var entry = _context.Entry(record);

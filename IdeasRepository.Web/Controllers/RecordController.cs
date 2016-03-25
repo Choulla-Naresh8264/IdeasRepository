@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace IdeasRepository.Web.Controllers
 {
+    [Authorize]
     public class RecordController : Controller
     {
         private IRecordsProvider _provider;
@@ -34,12 +35,33 @@ namespace IdeasRepository.Web.Controllers
                         Author = record.Author,
                         CreationDate = record.CreationDate.ToString(),
                         RecordType = record.RecordType.Name,
-                        TextBody = record.TextBody
+                        TextBody = record.TextBody,
+                        IsDeleted = record.IsDeleted
                     });
                 } 
             }
 
             return View(recordsViewModel);
+        }
+
+        public ActionResult RecordTypes()
+        {
+            var recordTypes = _provider.GetAllRecordTypes();
+            var recordTypesViewModel = new List<RecordTypeViewModel>();
+
+            if (recordTypes != null)
+            {
+                foreach (var record in recordTypes)
+                {
+                    recordTypesViewModel.Add(new RecordTypeViewModel
+                    {
+                        Id = record.Id,
+                        Name = record.Name
+                    });
+                }
+            }
+
+            return PartialView("_PartialRecordTypes", recordTypesViewModel);
         }
 
         public ActionResult Create()
@@ -108,17 +130,44 @@ namespace IdeasRepository.Web.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult Remove(string id)
+        {
+            if (User.IsInRole("Administrator"))
+            {
+                var recordDataModel = new Record
+                {
+                    Id = id,
+                };
+
+                _provider.RemoveRecord(recordDataModel);
+            }
+            else
+            {
+                var recordDataModel = new Record
+                {
+                    Id = id,
+                    IsDeleted = true
+                };
+
+                _provider.UpdateRemovedStatus(recordDataModel);
+            }
+
+            return RedirectToAction("List");
+        }
+
+        [HttpGet]
+        public ActionResult Restore(string id)
         {
             var recordDataModel = new Record
             {
-                Id = id
+                Id = id,
+                IsDeleted = false
             };
 
-            _provider.RemoveRecord(recordDataModel);
+            _provider.UpdateRemovedStatus(recordDataModel);
 
-            return View("List");
+            return RedirectToAction("List");
         }
 
         protected override void Dispose(bool disposing)

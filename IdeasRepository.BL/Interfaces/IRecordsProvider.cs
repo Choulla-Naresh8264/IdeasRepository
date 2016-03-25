@@ -16,5 +16,6 @@ namespace IdeasRepository.BL.Interfaces
         void AddRecord(Record record);
         void UpdateRecord(Record record);
         void RemoveRecord(Record record);
+        void UpdateRemovedStatus(Record record);
     }
 }

@@ -24,12 +24,18 @@
         <th>
             @Html.DisplayNameFor(model => model.RecordType)
         </th>
+        @if (User.IsInRole("Administrator"))
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+        }
         <th></th>
     </tr>
 
     @foreach (var record in Model)
     {
-        if (User.IsInRole("Administrator") || record.Author == User.Identity.GetUserName())
+        if (User.IsInRole("Administrator") || (record.Author == User.Identity.GetUserName() & !record.IsDeleted))
         {
             <tr>
                 <td>
@@ -44,6 +50,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => record.RecordType)
                 </td>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => record.IsDeleted)
+                        @if (record.IsDeleted)
+                        {
+                            @Html.ActionLink("Restore", "Restore", new { id = record.Id })
+                        }
+                    </td>
+                }
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = record.Id }) |
                     @Html.ActionLink("Delete", "Remove", new { id = record.Id })
