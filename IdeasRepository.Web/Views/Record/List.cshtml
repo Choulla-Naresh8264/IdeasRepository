@@ -62,10 +62,14 @@
                 }
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = record.Id }) |
-                    @Html.ActionLink("Delete", "Remove", new { id = record.Id })
+                    @Html.ActionLink("Delete", "Remove", new { id = record.Id }, new { @id = "removeRecord" })
                 </td>
             </tr>
         }
     }
 
 </table>
+
+@section Scripts{
+    <script src="~/Scripts/removingConfirmation.js"></script>
+}
