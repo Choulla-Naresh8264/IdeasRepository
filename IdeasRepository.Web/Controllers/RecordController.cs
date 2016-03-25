@@ -42,7 +42,7 @@ namespace IdeasRepository.Web.Controllers
                         TextBody = record.TextBody,
                         IsDeleted = record.IsDeleted
                     });
-                } 
+                }
             }
 
             return View(recordsViewModel);

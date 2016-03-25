@@ -2,6 +2,9 @@
 
 namespace IdeasRepository.DAL.Entities
 {
+    /// <summary>
+    /// Represents a record type.
+    /// </summary>
     public class RecordType
     {
         public RecordType()

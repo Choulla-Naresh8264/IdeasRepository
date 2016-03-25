@@ -2,6 +2,9 @@
 
 namespace IdeasRepository.DAL.Entities
 {
+    /// <summary>
+    /// Represents a user's record in the system.
+    /// </summary>
     public class Record
     {
         public string Id { get; set; }

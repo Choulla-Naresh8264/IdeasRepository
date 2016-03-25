@@ -2,6 +2,9 @@
 
 namespace IdeasRepository.DAL.Entities
 {
+    /// <summary>
+    /// Represents an Identity user role.
+    /// </summary>
     public class ApplicationRole : IdentityRole
     {
         public ApplicationRole() : base()

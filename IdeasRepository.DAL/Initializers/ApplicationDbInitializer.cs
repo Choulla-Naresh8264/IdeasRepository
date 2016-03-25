@@ -36,7 +36,6 @@ namespace IdeasRepository.DAL.Initializers
             AddUser(context, "user", "user@user.com", "user", roleIdUser);
 
             AddRecordTypes(context);
-
             AddRecords(context, 7);
 
             context.SaveChanges();
@@ -62,7 +61,7 @@ namespace IdeasRepository.DAL.Initializers
                         RecordTypeId = GetRandomRecordTypeId(context)
                     };
 
-                    context.Records.Add(record);  
+                    context.Records.Add(record);
                 }
             }
             context.SaveChanges();
@@ -75,7 +74,6 @@ namespace IdeasRepository.DAL.Initializers
         private string GetRandomRecordTypeId(ApplicationDbContext context)
         {
             var recordTypeNumber = _random.Next(0, 5);
-
             return context.RecordTypes.ToList()[recordTypeNumber].Id;
         }
 

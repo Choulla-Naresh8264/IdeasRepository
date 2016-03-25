@@ -19,7 +19,7 @@ namespace IdeasRepository.Web.Controllers
         /// </summary>
         [Inject]
         public IAccountsProvider _accountsProvider { get; set; }
-        
+
         public ActionResult Login(string returnUrl)
         {
             ViewBag.returnUrl = returnUrl;

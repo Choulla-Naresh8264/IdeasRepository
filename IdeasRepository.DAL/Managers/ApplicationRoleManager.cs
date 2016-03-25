@@ -19,7 +19,7 @@ namespace IdeasRepository.DAL.Managers
         }
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options,
-                                                IOwinContext context)
+                                                    IOwinContext context)
         {
             return new ApplicationRoleManager(new
                     RoleStore<ApplicationRole>(context.Get<ApplicationDbContext>()));

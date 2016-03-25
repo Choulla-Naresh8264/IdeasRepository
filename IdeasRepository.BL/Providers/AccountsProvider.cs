@@ -16,11 +16,9 @@ namespace IdeasRepository.BL.Providers
         [Inject]
         public ApplicationUserManager UserManager { get; set; }
 
-        
         [Inject]
         public ApplicationRoleManager RoleManager { get; set; }
 
-        
         [Inject]
         public IAuthenticationManager AuthManager { get; set; }
 
